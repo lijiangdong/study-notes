@@ -95,4 +95,6 @@
 
 ### **长期存活的对象将进入老年代**
 
-如果对象在Eden出生并经过第一次Minor GC后仍然存活，并且能够被Survivor容纳的话，将会被移动到Survivor空间中，并且对象年龄设为1.对象在Survivor区中每“熬过”一次Minor GC，年龄就增加1岁，当它的年龄增加到一定程度（默认15岁）的时候就会被晋升到老年代当中。
+如果对象在Eden出生并经过第一次Minor GC后仍然存活，并且能够被Survivor容纳的话，将会被移动到Survivor空间中，并且对象年龄设为1.对象在Survivor区中每“熬过”一次Minor GC，年龄就增加1岁，当它的年龄增加到一定程度（默认15岁）的时候就会被晋升到老年代当中。对象晋升老年代年龄的阀至可以通过参数-XX:MaxTenuringThreshold设置。
+
+为了更好的适应内存的不同状况，虚拟机并不是永远的要求对象的年龄必须达到了MaxTenuringThreshold才能晋升老年代，如果Survivor空间中相同年龄所有对象大小的总和大于Survivor空间的一半，年龄大于或等于该年龄的对象就可以直接进入老年代，无需等到MaxTenuringThreshold中要求的年龄。
